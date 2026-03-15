@@ -1,4 +1,6 @@
 .DS_Store
 Thumbs.db
 *.log
+*.txt
+backend/target/
 node_modules/

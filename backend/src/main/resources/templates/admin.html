@@ -13,7 +13,7 @@
         <div class="screen active">
             <div class="topbar">
                 <div class="topbar-logo">
-                    task<span>flow</span>
+                    <span>Kanban</span>
                     <span class="topbar-tag">admin</span>
                 </div>
                 <div class="topbar-right">
@@ -107,16 +107,16 @@
                     <div class="panel">
                         <div class="panel-title">Membros da equipe</div>
                         <div class="team-grid">
-                            <div th:each="m : ${membros}" class="member-card">
-                                <div class="member-card-top">
-                                    <div class="member-av" th:text="${#strings.substring(m.nome,0,1)}"
-                                        style="background:var(--blue-light);color:var(--blue-dark)"></div>
-                                    <div>
-                                        <div class="member-name" th:text="${m.nome}"></div>
-                                        <div class="member-login" th:text="${'@' + m.usuario}"></div>
-                                    </div>
+                            <div th:each="m : ${membros}" class="stat-card" style="position:relative; padding-bottom: 3.5rem;">
+                                <div class="num" th:text="${tarefasCount[m.id]}" style="color:var(--blue)">0</div>
+                                <div class="lbl">Tarefas</div>
+                                
+                                <div style="margin-top: 15px;">
+                                   <div style="font-size:14px; font-weight:600; color:var(--text);" th:text="${m.nome}"></div>
+                                   <div style="font-size:11px; color:var(--text-faint);" th:text="${'@' + m.usuario}"></div>
                                 </div>
-                                <div class="member-card-actions">
+                                
+                                <div class="member-card-actions" style="justify-content:center; margin-top:15px; position:absolute; bottom: 15px; width: 100%; left: 0;">
                                     <form th:action="@{/admin/equipe/excluir/{id}(id=${m.id})}" method="POST">
                                         <button type="submit" class="btn-sm danger">Remover</button>
                                     </form>

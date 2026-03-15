@@ -8,11 +8,11 @@
     <version>3.2.3</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>br.com.taskflow</groupId>
-  <artifactId>taskflow-backend</artifactId>
+  <groupId>br.com.kanban</groupId>
+  <artifactId>kanban-backend</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>taskflow-backend</name>
-  <description>Backend Java para taskflow v2</description>
+  <name>kanban-backend</name>
+  <description>Backend Java para Kanban</description>
   <properties>
     <java.version>17</java.version>
   </properties>
@@ -52,7 +52,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>br.com.taskflow.TaskflowApplication</mainClass>
+          <mainClass>br.com.kanban.KanbanApplication</mainClass>
           <excludes>
             <exclude>
               <groupId>org.projectlombok</groupId>
