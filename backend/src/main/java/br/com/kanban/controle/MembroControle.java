@@ -27,7 +27,7 @@ public class MembroControle {
     }
 
     @DeleteMapping("/{id}")
-    public void excluir(@PathVariable Long id) {
+    public void excluir(@PathVariable("id") Long id) {
         membroServico.excluir(id);
     }
 }

@@ -39,11 +39,11 @@ public class AdminControle {
     }
 
     @PostMapping("/tarefas/nova")
-    public String novaTarefa(@RequestParam String titulo,
-            @RequestParam String descricao,
-            @RequestParam Long membroId,
-            @RequestParam String prioridade,
-            @RequestParam(required = false) String prazo,
+    public String novaTarefa(@RequestParam("titulo") String titulo,
+            @RequestParam("descricao") String descricao,
+            @RequestParam("membroId") Long membroId,
+            @RequestParam("prioridade") String prioridade,
+            @RequestParam(value = "prazo", required = false) String prazo,
             HttpSession session) {
         if (!isAdmin(session))
             return "redirect:/login";
@@ -68,7 +68,7 @@ public class AdminControle {
     }
 
     @PostMapping("/tarefas/alternar/{id}")
-    public String alternarTarefa(@PathVariable Long id, HttpSession session) {
+    public String alternarTarefa(@PathVariable("id") Long id, HttpSession session) {
         if (!isAdmin(session))
             return "redirect:/login";
         tarefaServico.alternarStatus(id);
@@ -76,7 +76,7 @@ public class AdminControle {
     }
 
     @PostMapping("/tarefas/excluir/{id}")
-    public String excluirTarefa(@PathVariable Long id, HttpSession session) {
+    public String excluirTarefa(@PathVariable("id") Long id, HttpSession session) {
         if (!isAdmin(session))
             return "redirect:/login";
         tarefaServico.excluir(id);
@@ -106,6 +106,12 @@ public class AdminControle {
     public String novoMembro(Membro membro, HttpSession session) {
         if (!isAdmin(session))
             return "redirect:/login";
+        
+        // Garante que o telefone comece com 55
+        if (membro.getTelefone() != null && !membro.getTelefone().startsWith("55")) {
+            membro.setTelefone("55" + membro.getTelefone());
+        }
+        
         membroServico.salvar(membro);
         return "redirect:/admin/equipe";
     }

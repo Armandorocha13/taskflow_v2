@@ -27,9 +27,9 @@ public class AutenticacaoControle {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String usuario, @RequestParam String senha, HttpSession session, Model model) {
-        if ("admin".equals(usuario) && "admin123".equals(senha)) {
-            session.setAttribute("usuarioLogado", "admin");
+    public String login(@RequestParam("usuario") String usuario, @RequestParam("senha") String senha, HttpSession session, Model model) {
+        if ("tiagoffa".equals(usuario) && "ffa2026".equals(senha)) {
+            session.setAttribute("usuarioLogado", "tiagoffa");
             session.setAttribute("perfil", "ADMIN");
             return "redirect:/admin/tarefas";
         }

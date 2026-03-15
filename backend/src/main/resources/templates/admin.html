@@ -128,7 +128,7 @@
                                     <input type="text" name="nome" placeholder="Nome completo" required>
                                     <input type="text" name="usuario" placeholder="login (sem espaços)" required>
                                     <input type="text" name="senha" placeholder="Senha" required>
-                                    <input type="text" name="telefone" placeholder="WhatsApp (55...)" required>
+                                    <input type="text" name="telefone" placeholder="WhatsApp (DDD + Número)" value="55" required>
                                     <button type="submit" class="btn-add">Cadastrar</button>
                                 </form>
                             </div>
@@ -139,14 +139,14 @@
                 <!-- ABA WHATSAPP -->
                 <div th:if="${aba == 'whatsapp'}">
                     <div class="panel">
-                        <div class="panel-title">Notificações Gratuitas</div>
+                        <div class="panel-title">Notificações via WhatsApp</div>
                         <p style="font-size:14px; line-height:1.6; color:var(--text-main); margin-bottom: 15px;">
-                            Para economizar e manter o sistema 100% gratuito, as notificações agora funcionam via <strong>Links Diretos (wa.me)</strong>.
+                            O sistema utiliza <strong>Links Diretos (wa.me)</strong> para enviar mensagens de forma gratuita.
                         </p>
                         <ul style="font-size:13px; color:var(--text-faint); margin-left: 20px; line-height: 1.8;">
-                            <li>O botão "Notificar WhatsApp" aparecerá ao lado de cada tarefa para o administrador.</li>
-                            <li>Ao clicar, o WhatsApp Web abrirá com a mensagem de aviso já pronta.</li>
-                            <li>Certifique-se de cadastrar o número do integrante com o código do país (ex: 5511999999999).</li>
+                            <li>O botão "Notificar WhatsApp" na aba <strong>Tarefas</strong> abre o chat do membro com a mensagem pronta.</li>
+                            <li><strong>Remetente:</strong> O número que enviará a mensagem é o que estiver logado no seu WhatsApp Web (neste caso, certifique-se de estar logado com o número 21974694304).</li>
+                            <li><strong>Destinatário:</strong> Cadastre o número dos membros com o DDI (ex: 5521999999999) na aba <strong>Equipe</strong>.</li>
                         </ul>
                     </div>
                 </div>

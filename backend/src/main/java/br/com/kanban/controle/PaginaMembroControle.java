@@ -43,7 +43,7 @@ public class PaginaMembroControle {
     }
 
     @PostMapping("/tarefas/alternar/{id}")
-    public String alternarTarefa(@PathVariable Long id, HttpSession session) {
+    public String alternarTarefa(@PathVariable("id") Long id, HttpSession session) {
         if (session.getAttribute("membroId") == null)
             return "redirect:/login";
         tarefaServico.alternarStatus(id);
