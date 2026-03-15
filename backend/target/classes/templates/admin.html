@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban — Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="app">
+        <div class="screen active">
+            <div class="topbar">
+                <div class="topbar-logo">
+                    task<span>flow</span>
+                    <span class="topbar-tag">admin</span>
+                </div>
+                <div class="topbar-right">
+                    <div class="user-badge">
+                        <div class="avatar">AD</div> Admin
+                    </div>
+                    <a th:href="@{/logout}" class="btn-logout" style="text-decoration:none">Sair</a>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <a th:href="@{/admin/tarefas}" class="tab" th:classappend="${aba == 'tarefas' ? 'active' : ''}"
+                    style="text-decoration:none">Tarefas</a>
+                <a th:href="@{/admin/equipe}" class="tab" th:classappend="${aba == 'equipe' ? 'active' : ''}"
+                    style="text-decoration:none">Equipe</a>
+                <a th:href="@{/admin/whatsapp}" class="tab" th:classappend="${aba == 'whatsapp' ? 'active' : ''}"
+                    style="text-decoration:none">WhatsApp</a>
+            </div>
+
+            <div class="admin-body">
+                <!-- ABA TAREFAS -->
+                <div th:if="${aba == 'tarefas'}">
+                    <div class="grid2">
+                        <div class="panel">
+                            <div class="panel-title">Nova tarefa</div>
+                            <form th:action="@{/admin/tarefas/nova}" method="POST" class="form-col">
+                                <input type="text" name="titulo" placeholder="Título da tarefa" maxlength="80" required>
+                                <textarea name="descricao" placeholder="Descrição (opcional)"></textarea>
+                                <div class="row2">
+                                    <select name="membroId" required>
+                                        <option value="">Atribuir a...</option>
+                                        <option th:each="m : ${membros}" th:value="${m.id}" th:text="${m.nome}">
+                                        </option>
+                                    </select>
+                                    <select name="prioridade">
+                                        <option value="MEDIA">Prioridade média</option>
+                                        <option value="ALTA">Alta prioridade</option>
+                                        <option value="BAIXA">Baixa prioridade</option>
+                                    </select>
+                                </div>
+                                <input type="date" name="prazo">
+                                <button type="submit" class="btn-add">Lançar tarefa + notificar WhatsApp</button>
+                            </form>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-title">Todas as tarefas</div>
+                            <div class="tasks-list">
+                                <div th:each="t : ${tarefas}" class="task-item"
+                                    th:classappend="${t.concluida ? 'done' : ''}">
+                                    <div class="task-meta">
+                                        <span class="badge bu"
+                                            th:text="${t.membro != null ? t.membro.nome : 'Sem membro'}"></span>
+                                        <span class="badge"
+                                            th:classappend="${'bp-' + t.prioridade.name().toLowerCase()}"
+                                            th:text="${t.prioridade}"></span>
+
+                                        <span class="badge" th:classappend="${t.concluida ? 'bdone' : 'bpend'}"
+                                            th:text="${t.concluida ? 'Concluída' : 'Pendente'}"></span>
+                                        <span th:if="${t.prazo}" th:text="${#temporals.format(t.prazo, 'dd/MM/yyyy')}"
+                                            style="font-size:11px;color:var(--text-faint)"></span>
+                                    </div>
+                                    <div class="task-title-txt" th:text="${t.titulo}"></div>
+                                    <div class="task-desc-txt" th:if="${t.descricao}" th:text="${t.descricao}"></div>
+                                    <div class="task-actions">
+                                        <a th:if="${t.membro != null and t.membro.telefone != null}"
+                                            th:href="@{'https://wa.me/' + ${t.membro.telefone} + '?text=Olá ' + ${t.membro.nome} + ', você tem uma nova tarefa: *' + ${t.titulo} + '*. Prioridade: ' + ${t.prioridade}}"
+                                            target="_blank" class="btn-sm"
+                                            style="background: #25D366; color: white; text-decoration: none; border:none; display: inline-flex; align-items: center; justify-content: center; font-weight: 600;">
+                                            Notificar WhatsApp
+                                        </a>
+                                        <form th:action="@{/admin/tarefas/alternar/{id}(id=${t.id})}" method="POST"
+                                            style="display:inline">
+                                            <button type="submit" class="btn-sm"
+                                                th:text="${t.concluida ? 'Reabrir' : 'Concluir'}"></button>
+                                        </form>
+                                        <form th:action="@{/admin/tarefas/excluir/{id}(id=${t.id})}" method="POST"
+                                            style="display:inline">
+                                            <button type="submit" class="btn-sm danger">Excluir</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div th:if="${#lists.isEmpty(tarefas)}" class="empty-state">Nenhuma tarefa lançada
+                                    ainda.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABA EQUIPE -->
+                <div th:if="${aba == 'equipe'}">
+                    <div class="panel">
+                        <div class="panel-title">Membros da equipe</div>
+                        <div class="team-grid">
+                            <div th:each="m : ${membros}" class="member-card">
+                                <div class="member-card-top">
+                                    <div class="member-av" th:text="${#strings.substring(m.nome,0,1)}"
+                                        style="background:var(--blue-light);color:var(--blue-dark)"></div>
+                                    <div>
+                                        <div class="member-name" th:text="${m.nome}"></div>
+                                        <div class="member-login" th:text="${'@' + m.usuario}"></div>
+                                    </div>
+                                </div>
+                                <div class="member-card-actions">
+                                    <form th:action="@{/admin/equipe/excluir/{id}(id=${m.id})}" method="POST">
+                                        <button type="submit" class="btn-sm danger">Remover</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-title">Novo Integrante</div>
+                                <form th:action="@{/admin/equipe/novo}" method="POST" class="form-col">
+                                    <input type="text" name="nome" placeholder="Nome completo" required>
+                                    <input type="text" name="usuario" placeholder="login (sem espaços)" required>
+                                    <input type="text" name="senha" placeholder="Senha" required>
+                                    <input type="text" name="telefone" placeholder="WhatsApp (55...)" required>
+                                    <button type="submit" class="btn-add">Cadastrar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABA WHATSAPP -->
+                <div th:if="${aba == 'whatsapp'}">
+                    <div class="panel">
+                        <div class="panel-title">Notificações Gratuitas</div>
+                        <p style="font-size:14px; line-height:1.6; color:var(--text-main); margin-bottom: 15px;">
+                            Para economizar e manter o sistema 100% gratuito, as notificações agora funcionam via <strong>Links Diretos (wa.me)</strong>.
+                        </p>
+                        <ul style="font-size:13px; color:var(--text-faint); margin-left: 20px; line-height: 1.8;">
+                            <li>O botão "Notificar WhatsApp" aparecerá ao lado de cada tarefa para o administrador.</li>
+                            <li>Ao clicar, o WhatsApp Web abrirá com a mensagem de aviso já pronta.</li>
+                            <li>Certifique-se de cadastrar o número do integrante com o código do país (ex: 5511999999999).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="toast" th:if="${mensagem}" th:text="${mensagem}" style="display:block; opacity:1"></div>
+</body>
+
+</html>

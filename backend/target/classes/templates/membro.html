@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>taskflow — Minhas Tarefas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="app">
+        <div class="screen active">
+            <div class="topbar">
+                <div class="topbar-logo">task<span>flow</span></div>
+                <div class="topbar-right">
+                    <div class="user-badge">
+                        <div class="avatar" th:text="${#strings.substring(membro.nome,0,1)}"></div>
+                        <span th:text="${membro.nome}"></span>
+                    </div>
+                    <a th:href="@{/logout}" class="btn-logout" style="text-decoration:none">Sair</a>
+                </div>
+            </div>
+            <div class="member-body">
+                <div class="member-header">
+                    <h2 th:text="${'Olá, ' + membro.nome + '!'}"></h2>
+                    <p>Suas tarefas atribuídas.</p>
+                </div>
+                <div class="tasks-list">
+                    <div th:each="t : ${tarefas}" class="task-item" th:classappend="${t.concluida ? 'done' : ''}">
+                        <div class="task-check-row">
+                            <form th:action="@{/membro/tarefas/alternar/{id}(id=${t.id})}" method="POST">
+                                <input type="checkbox" class="member-check" th:checked="${t.concluida}"
+                                    onchange="this.form.submit()">
+                            </form>
+                            <div style="flex:1">
+                                <div class="task-meta">
+                                    <span class="badge" th:classappend="${'bp-' + t.prioridade.name().toLowerCase()}"
+                                        th:text="${t.prioridade}"></span>
+                                    <span th:if="${t.prazo}" th:text="${#temporals.format(t.prazo, 'dd/MM/yyyy')}"
+                                        style="font-size:11px;color:var(--text-faint)"></span>
+                                </div>
+                                <div class="task-title-txt" th:text="${t.titulo}"></div>
+                                <div class="task-desc-txt" th:if="${t.descricao}" th:text="${t.descricao}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${#lists.isEmpty(tarefas)}" class="empty-state">Nenhuma tarefa aqui.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>taskflow — Gestão de Equipe</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="app" id="app-root">
+
+    <!-- ==================== LOGIN ==================== -->
+    <div class="screen active" id="screen-login">
+      <div class="login-wrap">
+        <div class="login-logo">task<span>flow</span></div>
+        <div class="login-card">
+          <div class="login-title">Entrar na sua conta</div>
+          <div class="field">
+            <label>Usuário</label>
+            <input type="text" id="login-user" placeholder="seu usuário" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label>Senha</label>
+            <input type="password" id="login-pass" placeholder="sua senha" />
+          </div>
+          <button class="btn-primary" onclick="doLogin()">Entrar</button>
+          <div class="login-error" id="login-error"></div>
+          <div class="login-hint" id="login-hint"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ADMIN ==================== -->
+    <div class="screen" id="screen-admin">
+      <div class="topbar">
+        <div class="topbar-logo">
+          task<span>flow</span>
+          <span class="topbar-tag">admin</span>
+        </div>
+        <div class="topbar-right">
+          <div class="user-badge">
+            <div class="avatar">AD</div> Admin
+          </div>
+          <button class="btn-logout" onclick="doLogout()">Sair</button>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('tasks', this)">Tarefas</div>
+        <div class="tab" onclick="switchTab('team', this)">Equipe</div>
+        <div class="tab" onclick="switchTab('config', this)">WhatsApp</div>
+      </div>
+
+      <div class="admin-body">
+
+        <!-- TAB: TAREFAS -->
+        <div class="tab-content active" id="tab-tasks">
+          <div class="grid2">
+            <div class="panel">
+              <div class="panel-title">Nova tarefa</div>
+              <div class="form-col">
+                <input type="text" id="task-title" placeholder="Título da tarefa" maxlength="80" />
+                <textarea id="task-desc" placeholder="Descrição (opcional)"></textarea>
+                <div class="row2">
+                  <select id="task-user">
+                    <option value="">Atribuir a...</option>
+                  </select>
+                  <select id="task-prio">
+                    <option value="medium">Prioridade média</option>
+                    <option value="high">Alta prioridade</option>
+                    <option value="low">Baixa prioridade</option>
+                  </select>
+                </div>
+                <input type="date" id="task-due" />
+                <button class="btn-add" onclick="addTask()">Lançar tarefa + notificar WhatsApp</button>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title">
+                Todas as tarefas
+                <button class="btn-alert" onclick="checkLate()">Alertar atrasadas</button>
+              </div>
+              <div class="tasks-list" id="admin-task-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: EQUIPE -->
+        <div class="tab-content" id="tab-team">
+          <div class="panel">
+            <div class="panel-title">
+              Membros da equipe
+              <span id="team-count" class="count-badge"></span>
+            </div>
+            <div class="team-grid" id="team-grid"></div>
+          </div>
+        </div>
+
+        <!-- TAB: WHATSAPP -->
+        <div class="tab-content" id="tab-config">
+          <div class="panel">
+            <div class="config-section">
+              <h3>Credenciais Z-API</h3>
+              <p class="config-hint">
+                Crie sua conta em <a href="https://z-api.io" target="_blank">z-api.io</a>,
+                crie uma instância, escaneie o QR Code e cole suas credenciais abaixo.
+              </p>
+              <div class="zapi-row">
+                <input type="text" id="zapi-instance" placeholder="Instance ID (ex: 3ABC...)" />
+                <input type="text" id="zapi-token" placeholder="Token (ex: abc123...)" />
+              </div>
+              <input type="text" id="zapi-client-token" class="full-input"
+                placeholder="Client-Token (Security Token — opcional)" />
+            </div>
+            <div class="config-section">
+              <h3>Números WhatsApp da equipe</h3>
+              <p class="config-hint">
+                Formato DDI + DDD + número, sem espaços ou traços.
+                Ex: <strong>5521999990000</strong>
+              </p>
+              <div id="member-phones"></div>
+            </div>
+            <div class="config-actions">
+              <button class="btn-save" onclick="saveConfig()">Salvar configurações</button>
+              <button class="btn-test" onclick="testWapp()">Enviar mensagem de teste</button>
+            </div>
+            <div class="config-info">
+              <p class="config-info-title">Como configurar em 3 passos:</p>
+              <p>1. Acesse z-api.io → crie conta → crie uma instância</p>
+              <p>2. Escaneie o QR Code com o WhatsApp que vai enviar</p>
+              <p>3. Copie o Instance ID e Token para os campos acima</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== MEMBRO ==================== -->
+    <div class="screen" id="screen-member">
+      <div class="topbar">
+        <div class="topbar-logo">task<span>flow</span></div>
+        <div class="topbar-right">
+          <div class="user-badge">
+            <div class="avatar" id="member-avatar"></div>
+            <span id="member-name-top"></span>
+          </div>
+          <button class="btn-logout" onclick="doLogout()">Sair</button>
+        </div>
+      </div>
+      <div class="member-body">
+        <div class="member-header">
+          <h2 id="member-greeting"></h2>
+          <p>Suas tarefas atribuídas.</p>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="num" id="stat-total">0</div>
+            <div class="lbl">total</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-pending">0</div>
+            <div class="lbl">pendentes</div>
+          </div>
+          <div class="stat-card">
+            <div class="num" id="stat-done">0</div>
+            <div class="lbl">concluídas</div>
+          </div>
+        </div>
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="setFilter('all', this)">Todas</button>
+          <button class="filter-btn" onclick="setFilter('pending', this)">Pendentes</button>
+          <button class="filter-btn" onclick="setFilter('done', this)">Concluídas</button>
+          <button class="filter-btn" onclick="setFilter('high', this)">Alta prioridade</button>
+        </div>
+        <div class="tasks-list" id="member-task-list"></div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: NOVO/EDITAR MEMBRO ==================== -->
+    <div class="modal-backdrop" id="modal-member" onclick="closeModalOutside(event)">
+      <div class="modal">
+        <div class="modal-title">
+          <span id="modal-member-title">Novo integrante</span>
+          <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+        </div>
+        <div class="form-col">
+          <div class="row2">
+            <div class="field-group">
+              <label>Nome completo</label>
+              <input type="text" id="new-name" placeholder="Ex: Pedro Souza" />
+            </div>
+            <div class="field-group">
+              <label>Login <span class="label-hint">(sem espaços)</span></label>
+              <input type="text" id="new-username" placeholder="Ex: pedro" />
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field-group">
+              <label>Senha</label>
+              <input type="text" id="new-pass" placeholder="Senha de acesso" />
+            </div>
+            <div class="field-group">
+              <label>WhatsApp <span class="label-hint">(opcional)</span></label>
+              <input type="text" id="new-phone" placeholder="5521999990000" />
+            </div>
+          </div>
+          <div class="modal-error" id="modal-error"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-modal-cancel" onclick="closeModal()">Cancelar</button>
+          <button class="btn-modal-confirm" onclick="confirmNewMember()">Cadastrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAL: CONFIRMAR EXCLUSÃO ==================== -->
+    <div class="modal-backdrop" id="modal-delete" onclick="closeDeleteOutside(event)">
+      <div class="modal">
+        <div class="modal-title">
+          <span>Remover integrante</span>
+          <button class="modal-close" onclick="closeDeleteModal()">&#x2715;</button>
+        </div>
+        <p class="modal-body-text" id="delete-confirm-text"></p>
+        <div class="modal-actions">
+          <button class="btn-modal-cancel" onclick="closeDeleteModal()">Cancelar</button>
+          <button class="btn-modal-confirm btn-danger" onclick="confirmDelete()">Remover</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+</body>
+
+</html>

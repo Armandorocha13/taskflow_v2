@@ -1,0 +1,50 @@
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ taskflow-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ taskflow-backend ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 17 source files with javac [debug release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ taskflow-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\mando\Downloads\taskflow_v2\taskflow_v2\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ taskflow-backend ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.2.3:run (default-cli) < test-compile @ taskflow-backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.3:run (default-cli) @ taskflow-backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2026-03-15T13:52:42.727-03:00  INFO 21588 --- [taskflow-backend] [           main] br.com.taskflow.TaskflowApplication      : Starting TaskflowApplication using Java 25 with PID 21588 (C:\Users\mando\Downloads\taskflow_v2\taskflow_v2\backend\target\classes started by mando in C:\Users\mando\Downloads\taskflow_v2\taskflow_v2\backend)
+2026-03-15T13:52:42.732-03:00  INFO 21588 --- [taskflow-backend] [           main] br.com.taskflow.TaskflowApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-03-15T13:52:43.888-03:00  INFO 21588 --- [taskflow-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-15T13:52:43.956-03:00  INFO 21588 --- [taskflow-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 3 JPA repository interfaces.
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (file:/C:/Users/mando/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.19/tomcat-embed-core-10.1.19.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-03-15T13:52:44.719-03:00  INFO 21588 --- [taskflow-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-15T13:52:44.743-03:00  INFO 21588 --- [taskflow-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-15T13:52:44.743-03:00  INFO 21588 --- [taskflow-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-03-15T13:52:44.831-03:00  INFO 21588 --- [taskflow-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-15T13:52:44.832-03:00  INFO 21588 --- [taskflow-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1863 ms
+2026-03-15T13:52:44.871-03:00  INFO 21588 --- [taskflow-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-15T13:52:45.109-03:00  INFO 21588 --- [taskflow-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:taskflowdb user=SA
+2026-03-15T13:52:45.111-03:00  INFO 21588 --- [taskflow-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-15T13:52:45.125-03:00  INFO 21588 --- [taskflow-backend] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:taskflowdb'
+2026-03-15T13:52:45.277-03:00  INFO 21588 --- [taskflow-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-15T13:52:45.346-03:00  INFO 21588 --- [taskflow-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-03-15T13:52:45.382-03:00  INFO 21588 --- [taskflow-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled

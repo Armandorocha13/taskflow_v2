@@ -1,0 +1,23 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< br.com.taskflow:taskflow-backend >------------------
+[INFO] Building taskflow-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ taskflow-backend ---
+[INFO] Deleting C:\Users\mando\Downloads\taskflow_v2\taskflow_v2\backend\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ taskflow-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ taskflow-backend ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 14 source files with javac [debug release 17] to target\classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.154 s
+[INFO] Finished at: 2026-03-15T12:40:51-03:00
+[INFO] ------------------------------------------------------------------------

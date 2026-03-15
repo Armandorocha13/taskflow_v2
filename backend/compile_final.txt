@@ -1,0 +1,37 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------< br.com.taskflow:taskflow-backend >------------------
+[INFO] Building taskflow-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ taskflow-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ taskflow-backend ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 13 source files with javac [debug release 17] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/mando/Downloads/taskflow_v2/taskflow_v2/backend/src/main/java/br/com/taskflow/controle/PaginaMembroControle.java:[20,33] variable tarefaServico not initialized in the default constructor
+[ERROR] /C:/Users/mando/Downloads/taskflow_v2/taskflow_v2/backend/src/main/java/br/com/taskflow/controle/PaginaMembroControle.java:[21,33] variable membroServico not initialized in the default constructor
+[INFO] 2 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.494 s
+[INFO] Finished at: 2026-03-15T12:20:50-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project taskflow-backend: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/mando/Downloads/taskflow_v2/taskflow_v2/backend/src/main/java/br/com/taskflow/controle/PaginaMembroControle.java:[20,33] variable tarefaServico not initialized in the default constructor
+[ERROR] /C:/Users/mando/Downloads/taskflow_v2/taskflow_v2/backend/src/main/java/br/com/taskflow/controle/PaginaMembroControle.java:[21,33] variable membroServico not initialized in the default constructor
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
