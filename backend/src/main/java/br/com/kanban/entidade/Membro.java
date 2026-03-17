@@ -18,6 +18,8 @@ public class Membro {
     private String senha;
 
     private String telefone;
+    private String tipo; // ADMIN ou MEMBRO
+
 
     public Membro() {
     }
@@ -61,4 +63,13 @@ public class Membro {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }
+

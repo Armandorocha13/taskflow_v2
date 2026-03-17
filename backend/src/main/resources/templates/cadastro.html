@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanban — Login</title>
+    <title>Kanban — Cadastro</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
@@ -14,8 +14,12 @@
             <div class="login-wrap">
                 <div class="login-logo">Kanban</div>
                 <div class="login-card">
-                    <div class="login-title">Entrar na sua conta</div>
-                    <form th:action="@{/login}" method="POST">
+                    <div class="login-title">Criar nova conta Admin</div>
+                    <form th:action="@{/cadastro}" method="POST">
+                        <div class="field">
+                            <label>Nome Completo</label>
+                            <input type="text" name="nome" placeholder="seu nome" required>
+                        </div>
                         <div class="field">
                             <label>Usuário</label>
                             <input type="text" name="usuario" placeholder="seu usuário" autocomplete="off" required>
@@ -24,13 +28,12 @@
                             <label>Senha</label>
                             <input type="password" name="senha" placeholder="sua senha" required>
                         </div>
-                        <button type="submit" class="btn-primary">Entrar</button>
-                        <div class="login-error" th:if="${erro}" th:text="${erro}"></div>
+                        <input type="hidden" name="tipo" value="ADMIN">
+                        <button type="submit" class="btn-primary">Criar Conta</button>
                     </form>
                     <div style="margin-top: 15px; text-align: center;">
-                        <a th:href="@{/cadastro}" style="color: var(--blue); font-size: 13px; text-decoration: none;">Não tem conta? Criar conta Admin</a>
+                        <a th:href="@{/login}" style="color: var(--blue); font-size: 13px; text-decoration: none;">Já tenho uma conta. Entrar</a>
                     </div>
-
                 </div>
             </div>
         </div>
