@@ -15,7 +15,8 @@
                 <div class="topbar-logo">Kanban</div>
                 <div class="topbar-right">
                     <div class="user-badge">
-                        <div class="avatar" th:text="${#strings.substring(membro.nome,0,1)}"></div>
+                        <div class="avatar" th:with="parts=${#strings.arraySplit(membro.nome, ' ')}"
+                             th:text="${#strings.substring(parts[0],0,1) + (parts.length > 1 ? #strings.substring(parts[parts.length-1],0,1) : '')}"></div>
                         <span th:text="${membro.nome}"></span>
                     </div>
                     <a th:href="@{/logout}" class="btn-logout" style="text-decoration:none">Sair</a>

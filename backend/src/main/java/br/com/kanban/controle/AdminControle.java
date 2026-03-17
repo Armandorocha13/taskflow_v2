@@ -28,6 +28,23 @@ public class AdminControle {
         return "ADMIN".equals(session.getAttribute("perfil"));
     }
 
+    @ModelAttribute
+    public void addAttributes(Model model, HttpSession session) {
+        String login = (String) session.getAttribute("usuarioLogado");
+        if (login != null) {
+            if ("tiagoffa".equals(login)) {
+                Membro m = new Membro();
+                m.setNome("Tiago Admin");
+                m.setUsuario("tiagoffa");
+                model.addAttribute("usuarioLogado", m);
+            } else {
+                membroServico.buscarPorUsuario(login).ifPresent(m -> {
+                    model.addAttribute("usuarioLogado", m);
+                });
+            }
+        }
+    }
+
     @GetMapping("/tarefas")
     public String tarefas(Model model, HttpSession session) {
         if (!isAdmin(session))

@@ -17,7 +17,13 @@
                     <span class="topbar-tag">admin</span>
                 </div>
                 <div class="topbar-right">
-                    <div class="user-badge">
+                    <div class="user-badge" th:if="${usuarioLogado != null}">
+                        <div class="avatar" th:with="parts=${#strings.arraySplit(usuarioLogado.nome, ' ')}"
+                             th:text="${#strings.substring(parts[0],0,1) + (parts.length > 1 ? #strings.substring(parts[parts.length-1],0,1) : '')}">
+                        </div>
+                        <span th:text="${usuarioLogado.nome}"></span>
+                    </div>
+                    <div class="user-badge" th:if="${usuarioLogado == null}">
                         <div class="avatar">AD</div> Admin
                     </div>
                     <a th:href="@{/logout}" class="btn-logout" style="text-decoration:none">Sair</a>
